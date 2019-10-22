@@ -2,7 +2,8 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 organization in ThisBuild := "me.shadaj"
 
-scalaVersion in ThisBuild := "2.12.8"
+scalaVersion in ThisBuild := "2.13.1"
+val nativeScalaVersion = "2.11.12"
 
 lazy val scalapy = project.in(file(".")).aggregate(
   macrosJVM, macrosNative,
@@ -27,7 +28,7 @@ lazy val macros = crossProject(JVMPlatform, NativePlatform)
     name := "scalapy-macros",
     libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
   ).nativeSettings(
-    scalaVersion := "2.11.12"
+    scalaVersion := nativeScalaVersion
   )
 
 lazy val macrosJVM = macros.jvm
@@ -87,15 +88,16 @@ lazy val core = crossProject(JVMPlatform, NativePlatform)
       Seq(fileToWrite)
     }
   ).settings(
-    libraryDependencies += "org.scalatest" %%% "scalatest" % "3.1.0-SNAP8" % Test,
     libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
   ).jvmSettings(
     libraryDependencies += "black.ninia" % "jep" % "3.8.2",
+    libraryDependencies += "org.scalatest" %%% "scalatest" % "3.0.8" % Test,
     libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0" % Test,
     fork in Test := true,
     javaOptions in Test += s"-Djava.library.path=${sys.env.getOrElse("JEP_PATH", "/usr/local/lib/python3.7/site-packages/jep")}"
   ).nativeSettings(
-    scalaVersion := "2.11.12",
+    scalaVersion := nativeScalaVersion,
+    libraryDependencies += "org.scalatest" %%% "scalatest" % "3.1.0-SNAP8" % Test,
     libraryDependencies += "com.github.lolgab" %%% "scalacheck" % "1.14.1" % Test,
     nativeLinkStubs := true,
     nativeLinkingOptions ++= {
