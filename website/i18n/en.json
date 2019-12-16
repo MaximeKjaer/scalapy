@@ -5,6 +5,10 @@
     "previous": "Previous",
     "tagline": "Use Python libraries from the comfort of Scala",
     "docs": {
+      "contributing": {
+        "title": "Contributing",
+        "sidebar_label": "Contributing"
+      },
       "getting-started": {
         "title": "Getting Started with ScalaPy",
         "sidebar_label": "Getting Started"
@@ -44,7 +48,8 @@
     },
     "categories": {
       "Core Concepts": "Core Concepts",
-      "Advanced Topics": "Advanced Topics"
+      "Advanced Topics": "Advanced Topics",
+      "Contributing": "Contributing"
     }
   },
   "pages-strings": {
